@@ -1,5 +1,8 @@
 #!/usr/bin/python
 
+"""compute the log-loss value for the predicted instances
+"""
+
 import sys
 import scipy as sp
 
@@ -11,8 +14,8 @@ def llfun(act, pred):
     ll = ll * -1.0/len(act)
     return ll
 
-act = []
-pred = []
+act = []  #to store all the actual 1/0 values
+pred = []  #to store all the predicted values ranging from (0,1)
 
 for line in sys.stdin:
 	line = line.strip()
