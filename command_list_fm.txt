@@ -1,0 +1,64 @@
+# **** test out counter mapreduce, actually run it in AWS
+python counter_mapper_fm.py < small_train_head_1.txt > counts_small_train.txt
+sort counts_small_train.txt -k1,1 -o counts_small_train.txt
+python counter_reducer_fm.py < counts_small_train.txt > bcounts_small_train.txt
+chmod +x counter_mapper_fm.py
+chmod +x counter_redcuer_fm.py
+
+# cd to output file directory with counts
+s3cmd get s3://stat157-uq85def/home/sclau/project/output/counts_fm/part*
+cat $(ls -t) > avazu-train-fm.txt
+python bayes_prob_fm.py > data/bprob-avazu-train.txt
+sort data/bprob-avazu-train.txt -k2,2 -k3,3 -o data/bprob-avazu-train.txt
+python bayes_prob_creator_fm.py < data/bprob-avazu-train.txt > data/bayes_probs_fm.txt
+chmod +x data/bayes_probs_fm.txt
+chmod +x bayes_prob_mapper1_valid_fm.py
+
+# test out validation mapper, actually run it in AWS
+python bayes_prob_mapper1_valid_fm.py < small_train_tail.txt
+
+# cd to output file directory
+mkdir results
+cd results
+s3cmd get s3://stat157-uq85def/home/sclau/project/output/full_model/part*
+cat $(ls -t) > binstance_fm.txt
+sort binstance_fm.txt -k1,1 -o binstance_fm.txt
+python bayes_logLoss_fm.py < data/results/binstance_fm.txt
+
+
+
+
+# **** experiment with different strange/unknown thresholds
+# threshold 11
+python bayes_prob_fm.py > data/bprob-avazu-train-11.txt
+sort data/bprob-avazu-train-11.txt -k2,2 -k3,3 -o data/bprob-avazu-train-11.txt
+python bayes_prob_creator_fm.py < data/bprob-avazu-train-11.txt > data/bayes_probs_fm_11.txt
+chmod +x data/bayes_probs_fm_11.txt
+chmod +x bayes_prob_mapper1_valid_fm_11.py
+
+mkdir thres_11
+cd thres_11
+s3cmd get s3://stat157-uq85def/home/sclau/project/output/full_model_11/part*
+cat $(ls -t) > binstance_fm_11.txt
+sort binstance_fm_11_fix.txt -k1,1 -o binstance_fm_11_fix.txt
+cd ../../
+python bayes_logLoss_fm.py < data/thres_11/binstance_fm_11.txt
+
+
+
+
+# **** experiment with different strange/unknown thresholds
+# threshold 21
+python bayes_prob_fm.py > data/bprob-avazu-train-21.txt
+sort data/bprob-avazu-train-21.txt -k2,2 -k3,3 -o data/bprob-avazu-train-21.txt
+python bayes_prob_creator_fm.py < data/bprob-avazu-train-21.txt > data/bayes_probs_fm_21.txt
+chmod +x data/bayes_probs_fm_21.txt
+chmod +x bayes_prob_mapper1_valid_fm_21.py
+
+mkdir thres_21
+cd thres_21
+s3cmd get s3://stat157-uq85def/home/sclau/project/output/full_model_21/part*
+cat $(ls -t) > binstance_fm_21.txt
+sort binstance_fm_21_fix1.txt -k1,1 -o binstance_fm_21_fix1.txt
+cd ../../
+python bayes_logLoss_fm.py < data/thres_21/binstance_fm_21_fix1.txt
