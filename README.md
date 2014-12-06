@@ -5,15 +5,14 @@ For our STAT 157 semester project at Berkeley, we wanted to compete in a [Kaggle
 ## Installation
 
 The training and test sets from the Avazu competition are in the following directories:
-
+```
 s3://stat157-uq85def/shared/avazudata/newdata/train
-
 s3://stat157-uq85def/shared/avazudata/newdata/test
-
+```
 The data produced from running all the code is in:
-
+```
 s3://stat157-uq85def/home/sclau/data/
-
+```
 In AWS create the following folders
 ```
 s3://stat157-uq85def/home/<your_user_id>/project
@@ -32,7 +31,7 @@ $cd ./bayes_model/
 ```
 Read the commands_* files to find out which commands do run in the terminal. Do them sequentially, commands_1.sh, commands_2.sh, commands_3.sh, commands_3_full.sh. You want to run each line of the files line by line in the terminal.
 
-# commands_1.sh and commands_3.sh example code
+#### commands_1.sh and commands_3.sh example code
 ```
 $chmod +x counter_map.py
 $chmod +x counter_red.py
