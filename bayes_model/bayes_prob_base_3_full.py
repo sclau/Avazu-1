@@ -1,18 +1,18 @@
-fields = ["hour", "C1", "banner_pos", "site_id", "site_domain", "site_category", "app_id", "app_domain", "app_category", "device_model", "device_type", "device_conn_type", "C14", "ad_size", "C17", "C18", "C19", "C20", "C21", "ip_feature", "id_feature"]
+fields = ["banner_pos", "site_category", "app_category", "device_type", "ad_size", "device_ip"]
 
 counts = {"0": {"total": 0.0}, "1": {"total": 0.0}}
 for i in range(0, len(fields)):
     counts["0"][fields[i]] = {"feature_ct": 0.0, "strange": 0.0}
     counts["1"][fields[i]] = {"feature_ct": 0.0, "strange": 0.0}
 
-with open('data/avazu-train-fm.txt', 'r') as f: 
+with open('data/counts_full/avazu_train.txt', 'r') as f: 
     for line in f.readlines():
         line = line.strip()
         values = line.split('\t')
         if len(values) == 4:
             click, feature, cat, count = values
-            ct = float(count)
-            if feature != "total":
+            ct = float(count)            
+            if feature != "total" and feature in fields:
                 counts[click][feature]["feature_ct"] += ct
                 counts[click][feature][cat] = ct
             else:
@@ -34,7 +34,7 @@ for click in counts:
                 count = counts[click][feature][cat]
                 total_ct = nclick_count + click_count
                 # check if total count for a category is less than 6
-                if total_ct <= 20:
+                if total_ct <= 300:
                     # add counts to strange
                     counts[click][feature]["strange"] += count
                     # delete category bc integrate
