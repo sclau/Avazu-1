@@ -47,6 +47,8 @@ As of 12/5/2014 our submission, 'STAT 157' comes out with a Log Loss of 0.493 an
 
 ## Contributors
 
-Ian Chin, UC Berkeley 2015
-Shangyu Zhao, UC Berkeley 2015
-Samuel Lau, UC Berkeley 2015 
+Ian Chin: Responsible for feature engineering and bayes_prob_mapper*
+
+Shangyu Zhao: Responsible for data characteristics
+
+Samuel Lau: Responsible for Naive Bayes Model
