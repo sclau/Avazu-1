@@ -49,6 +49,8 @@ In the command_* files, you'll find instructions on how to run each file and Map
 
 base_1, base_2, and base_3 are the three variations of our naive bayes model, they are tested on the validation set. base_3_full is the model trained on the full training set
 
+The 4 features in the base model are: app_category, site_categoy, banner_position and device_model
+
 ## Results
 
 After calculating the model and testing it on the validation sets, here are the results:
